@@ -1,0 +1,31 @@
+---
+import MainLayout from "../layouts/MainLayout.astro";
+
+const posts = Object.values(import.meta.glob("./posts/*.md", { eager: true })).sort(
+	(a: any, b: any) =>
+		new Date(b.frontmatter.pubDate).valueOf() -
+		new Date(a.frontmatter.pubDate).valueOf()
+);
+---
+
+<MainLayout title="Blog">
+	<div class="posts-list">
+		{
+			posts.map((post: any) => (
+				<a href={post.url} class="post-item">
+					{post.frontmatter.cover && (
+						<img
+							src={post.frontmatter.cover}
+							alt={post.frontmatter.title}
+							class="post-cover"
+						/>
+					)}
+					<div class="post-content">
+						<h2>{post.frontmatter.title}</h2>
+						<p class="post-date">{post.frontmatter.pubDate}</p>
+					</div>
+				</a>
+			))
+		}
+	</div>
+</MainLayout>

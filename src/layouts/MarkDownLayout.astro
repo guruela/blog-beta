@@ -1,0 +1,16 @@
+---
+import MainLayout from "./MainLayout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<MainLayout title={frontmatter.title}>
+    <div class="post-container">
+        <h1 class="post-title">{frontmatter.title}</h1>
+        <img src={frontmatter.cover} />
+        {frontmatter.pubDate && <p class="post-date">{frontmatter.pubDate}</p>}
+
+        <div class="markdown-content">
+            <slot />
+        </div>
+    </div>
+</MainLayout>
