@@ -514,6 +514,17 @@ html.dark .post-item {
     margin: 0;
 }
 
+.footer-content a {
+    color: inherit;
+    text-decoration: underline;
+    opacity: 1;
+    transition: opacity 0.2s;
+}
+
+.footer-content a:hover {
+    opacity: 0.7;
+}
+
 /* Dark Mode Overrides */
 html.dark {
     background-color: #1e1e1e;
