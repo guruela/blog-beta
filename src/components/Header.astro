@@ -4,18 +4,18 @@ const pathname = Astro.url.pathname;
 
 <div class="header">
     <div class="title">
-        <a href="/"
-            >microkid<sup class="header-version"
-                >(v0.0.5 beta)</sup
-            ></a
+        <a href="/blog-beta"
+            >microkid<sup class="header-version">(v0.0.5 beta)</sup></a
         >
     </div>
     <div class="nav">
         <nav class="nav-buttons">
-            <a href="/" class={pathname === "/" ? "active" : ""}>Home</a>
+            <a href="/blog-beta" class={pathname === "/" ? "active" : ""}
+                >Home</a
+            >
 
             <a
-                href="/blog"
+                href="/blog-beta/blog"
                 class={pathname.startsWith("/blog") ||
                 pathname.startsWith("/posts")
                     ? "active"
