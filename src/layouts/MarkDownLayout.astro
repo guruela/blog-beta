@@ -7,7 +7,7 @@ const { frontmatter } = Astro.props;
     <div class="post-container">
         <h1 class="post-title">{frontmatter.title}</h1>
         <img src={frontmatter.cover} />
-        {frontmatter.pubDate && <p class="post-date">{frontmatter.pubDate}</p>}
+        {frontmatter.pubDate && <p class="post-date">{new Date(frontmatter.pubDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>}
 
         <div class="markdown-content">
             <slot />

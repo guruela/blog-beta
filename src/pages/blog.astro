@@ -22,7 +22,7 @@ const posts = Object.values(import.meta.glob("./posts/*.md", { eager: true })).s
 					)}
 					<div class="post-content">
 						<h2>{post.frontmatter.title}</h2>
-						<p class="post-date">{post.frontmatter.pubDate}</p>
+						<p class="post-date">{new Date(post.frontmatter.pubDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
 					</div>
 				</a>
 			))
