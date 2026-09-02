@@ -52,4 +52,4 @@ void loop()
 }
 ```
 # Demo
-![](/videos/posts/20200717/demo.mov)
+![](/videos/posts/20200717/demo.mp4)
