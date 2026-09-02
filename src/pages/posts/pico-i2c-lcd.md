@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/MarkDownLayout.astro
 title: "Raspberry Pi Pico 16x2 I2C LCD DRIVER"
-cover: "/images/pico_i2c_lcd.jpg"
+cover: "/images/posts/20260609/cover.jpg"
 pubDate: "2026-06-29"
 description: "Raspberry Pi Pico 16x2 I2C LCD DRIVER"
 ---
