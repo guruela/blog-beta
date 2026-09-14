@@ -4,7 +4,10 @@ function initCopyButtons() {
         if (pre.dataset.copyInit) return;
         pre.dataset.copyInit = 'true';
 
-        pre.style.position = 'relative';
+        const wrapper = document.createElement('div');
+        wrapper.className = 'code-block';
+        pre.parentNode?.insertBefore(wrapper, pre);
+        wrapper.appendChild(pre);
 
         const btn = document.createElement('button');
         btn.type = 'button';
@@ -27,7 +30,7 @@ function initCopyButtons() {
             }, 2000);
         });
 
-        pre.appendChild(btn);
+        wrapper.appendChild(btn);
     });
 }
 
