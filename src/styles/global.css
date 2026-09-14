@@ -246,6 +246,50 @@ html.dark #theme-icon-moon {
     flex: 1;
 }
 
+.profile-picture {
+    width: clamp(150px, 20vw, 190px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: 65% 35%;
+}
+
+.profile-picture.is-transitioning {
+    animation: profile-picture-motion-blur 0.7s ease-in-out;
+}
+
+@keyframes profile-picture-motion-blur {
+    0% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scaleY(1);
+    }
+
+    50% {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(-14px) scaleY(0.9);
+    }
+
+    50.01% {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(14px) scaleY(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0) scaleY(1);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .profile-picture.is-transitioning {
+        animation: none;
+    }
+}
+
 .hero-title {
     font-size: clamp(0.8rem, 5vw, 3rem);
     font-weight: bold;
