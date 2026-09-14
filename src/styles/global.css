@@ -35,20 +35,25 @@ body {
 }
 
 .title>a {
-    font-size: 1.5rem;
+    display: inline-flex;
+    align-items: baseline;
     color: black;
-    transition: font-weight 0.5s;
+    transition: opacity 0.2s;
 }
 
 .title>a:hover {
-    font-weight: bold;
+    opacity: 0.7;
 }
 
-.header-version {
-    font-size: 0.5em;
-    font-weight: normal;
-    opacity: 0.7;
-    margin-left: 0.2rem;
+.site-logo {
+    display: block;
+    width: 180px;
+    max-width: 100%;
+    height: auto;
+}
+
+.site-logo-dark-theme {
+    display: none;
 }
 
 .search-box {
@@ -607,6 +612,14 @@ html.dark .search-toggle {
     color: #e0e0e0;
 }
 
+html.dark .site-logo-light-theme {
+    display: none;
+}
+
+html.dark .site-logo-dark-theme {
+    display: block;
+}
+
 html.dark .search-container.expanded #search-input {
     border-color: #555;
     background-color: #2d2d2d;
@@ -645,10 +658,6 @@ html.dark .hero-title::after {
     .header {
         flex-wrap: wrap;
         row-gap: 1rem;
-    }
-
-    .header-version {
-        font-size: 0.45rem;
     }
 
     .nav {
