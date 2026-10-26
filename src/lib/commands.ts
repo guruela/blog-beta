@@ -46,17 +46,6 @@ export const ABOUT: AboutRow[] = [
         ],
     },
     { kind: "spacer" },
-    {
-        kind: "prose",
-        parts: [
-            "This site is a terminal. Everything you see is command output. Try ",
-            { text: "ls blog", ok: true },
-            " to browse posts, or ",
-            { text: "help", ok: true },
-            " for the full command list.",
-        ],
-    },
-    { kind: "spacer" },
     { kind: "socials" },
 ];
 
