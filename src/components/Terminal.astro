@@ -1,0 +1,68 @@
+---
+interface Props {
+    command?: string;
+    cwd?: string;
+    user?: string;
+    host?: string;
+    directory?: boolean;
+}
+
+const {
+    command,
+    cwd = "~",
+    user = "user",
+    host = "microkid",
+    directory = false,
+} = Astro.props;
+
+const ps1 = `<span class="pu">${user}</span><span class="punc">@</span><span class="ph">${host}</span><span class="punc">:</span><span class="pp">${cwd}</span><span class="punc">$</span>`;
+---
+
+<div class="terminal" id="terminal">
+    <div class="terminal-body" id="terminal-body">
+        <div
+            class="terminal-output"
+            id="terminal-output"
+            data-directory={directory ? "true" : undefined}
+        >
+            {
+                command && (
+                    <div class="out cmd-line">
+                        <span class="ps1" set:html={ps1} />
+                        <span> {command}</span>
+                    </div>
+                )
+            }
+            <slot />
+        </div>
+    </div>
+
+    <div class="terminal-prompt">
+        <div class="terminal-prompt-line">
+            <span class="ps1" set:html={ps1} />
+            <span class="prompt-gap">&nbsp;</span>
+            <input
+                id="terminal-input"
+                class="terminal-input"
+                type="text"
+                autocomplete="off"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+                aria-label="Terminal input"
+            />
+            <span
+                class="terminal-cursor"
+                id="terminal-cursor"
+                aria-hidden="true"></span>
+        </div>
+        <div class="terminal-chips">
+            <button type="button" class="terminal-chip" data-cmd="help">help</button>
+            <button type="button" class="terminal-chip" data-cmd="about">about</button>
+            <button type="button" class="terminal-chip" data-cmd="ls blog">ls blog</button>
+            <button type="button" class="terminal-chip" data-cmd="neofetch">neofetch</button>
+            <button type="button" class="terminal-chip" data-cmd="contact">contact</button>
+            <button type="button" class="terminal-chip" data-cmd="clear">clear</button>
+        </div>
+    </div>
+</div>

@@ -1,31 +1,47 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
 
-const posts = Object.values(import.meta.glob("./posts/*.md", { eager: true })).sort(
-	(a: any, b: any) =>
-		new Date(b.frontmatter.pubDate).valueOf() -
-		new Date(a.frontmatter.pubDate).valueOf()
-);
+const posts = Object.values(
+    import.meta.glob("./posts/*.md", { eager: true }),
+)
+    .sort(
+        (a: any, b: any) =>
+            new Date(b.frontmatter.pubDate).valueOf() -
+            new Date(a.frontmatter.pubDate).valueOf(),
+    )
+    .map((post: any) => ({
+        slug: String(post.url).split("/").filter(Boolean).pop() ?? "",
+        url: post.url as string,
+        title: post.frontmatter.title as string,
+        pubDate: post.frontmatter.pubDate as string,
+    }));
+
+const fmt = (value: string) =>
+    new Date(value).toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+    });
 ---
 
-<MainLayout title="Blog">
-	<div class="posts-list">
-		{
-			posts.map((post: any) => (
-				<a href={post.url} class="post-item">
-					{post.frontmatter.cover && (
-						<img
-							src={post.frontmatter.cover}
-							alt={post.frontmatter.title}
-							class="post-cover"
-						/>
-					)}
-					<div class="post-content">
-						<h2>{post.frontmatter.title}</h2>
-						<p class="post-date">{new Date(post.frontmatter.pubDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>
-					</div>
-				</a>
-			))
-		}
-	</div>
+<MainLayout title="Blog" command="ls blog" cwd="~/blog" directory>
+    <div class="out dim">total {posts.length}</div>
+    {
+        posts.map((post, i) => (
+            <div class="out ls-row">
+                <span class="dim">[{String(i).padStart(2, " ")}] </span>
+                <span class="dim ls-date">{fmt(post.pubDate)} </span>
+                <a class="link" href={post.url}>
+                    {post.title}
+                </a>
+                <span class="dim ls-slug"> → {post.slug}</span>
+            </div>
+        ))
+    }
+    <div class="out spacer"></div>
+    <div class="out dim">
+        Use <span class="ok">open &lt;index&gt;</span> or <span class="ok"
+            >open &lt;slug&gt;</span
+        > to read a post.
+    </div>
 </MainLayout>

@@ -1,49 +1,55 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
+import Terminal from "../components/Terminal.astro";
 import "../styles/global.css";
+import { SITE } from "../lib/commands";
 
-const { title } = Astro.props;
+interface Props {
+    title?: string;
+    command?: string;
+    cwd?: string;
+    directory?: boolean;
+}
+
+const { title = "Home", command, cwd = "~", directory = false } = Astro.props;
 ---
 
-<html lang="en">
+<html lang="en" data-theme="dracula">
     <head>
         <meta charset="utf-8" />
-        <link rel="icon" href="/favicon.ico" sizes="32x32" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
             rel="stylesheet"
         />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <title>Microkid | {title}</title>
+        <title>{SITE.name} | {title}</title>
+        <script is:inline>
+            (function () {
+                try {
+                    var theme = localStorage.getItem("terminal-theme");
+                    if (theme) {
+                        document.documentElement.setAttribute(
+                            "data-theme",
+                            theme,
+                        );
+                    }
+                } catch (e) {
+                    /* ignore */
+                }
+            })();
+        </script>
         <script src="../scripts/video.ts"></script>
         <script src="../scripts/codeCopy.ts"></script>
-        <script is:inline>
-            const setTheme = () => {
-                const theme =
-                    localStorage.getItem("theme") ||
-                    (window.matchMedia("(prefers-color-scheme: dark)").matches
-                        ? "dark"
-                        : "light");
-                if (theme === "dark") {
-                    document.documentElement.classList.add("dark");
-                } else {
-                    document.documentElement.classList.remove("dark");
-                }
-            };
-            setTheme();
-            document.addEventListener("astro:after-swap", setTheme);
-        </script>
     </head>
     <body>
-        <Header />
-        <main class="main-content">
+        <Terminal command={command} cwd={cwd} directory={directory}>
             <slot />
-        </main>
-        <Footer />
+        </Terminal>
+        <script src="../scripts/terminal.ts"></script>
     </body>
 </html>

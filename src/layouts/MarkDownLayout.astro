@@ -1,16 +1,36 @@
 ---
 import MainLayout from "./MainLayout.astro";
+
 const { frontmatter } = Astro.props;
+const slug = Astro.url.pathname.split("/").filter(Boolean).pop() ?? "";
+const formattedDate = frontmatter.pubDate
+    ? new Date(frontmatter.pubDate).toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+      })
+    : null;
 ---
 
-<MainLayout title={frontmatter.title}>
-    <div class="post-container">
-        <h1 class="post-title">{frontmatter.title}</h1>
-        <img src={frontmatter.cover} />
-        {frontmatter.pubDate && <p class="post-date">{new Date(frontmatter.pubDate).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}</p>}
-
-        <div class="markdown-content">
-            <slot />
-        </div>
+<MainLayout
+    title={frontmatter.title}
+    command={`cat posts/${slug}.md`}
+    cwd={`~/posts/${slug}`}
+>
+    <div class="out post-head">{frontmatter.title}</div>
+    {formattedDate && <div class="out dim post-meta">{formattedDate}</div>}
+    {
+        frontmatter.cover && (
+            <div class="out post-cover-wrap">
+                <img
+                    class="post-cover"
+                    src={frontmatter.cover}
+                    alt={frontmatter.title}
+                />
+            </div>
+        )
+    }
+    <div class="markdown-content">
+        <slot />
     </div>
 </MainLayout>

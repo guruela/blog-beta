@@ -4,6 +4,8 @@ This repo contains the source code of my website. This site serves as a space to
 
 It is built using **[Astro](https://astro.build/)**, JavaScript Framework.
 
+The UI is styled as an interactive terminal — type `help` for the available commands.
+
 ## File Structure
 
 Here's a quick overview of how the project is organized:
@@ -14,6 +16,7 @@ Here's a quick overview of how the project is organized:
 ├── src/
 │   ├── components/         # Reusable UI components
 │   ├── layouts/            # Page layouts
+│   ├── lib/                # Shared data (site info, commands, themes)
 │   ├── pages/              # Routing pages
 │   │   ├── index.astro     # Home page
 │   │   ├── blog.astro      # The blog feed

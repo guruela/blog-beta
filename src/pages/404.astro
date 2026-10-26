@@ -1,22 +1,18 @@
 ---
 import MainLayout from "../layouts/MainLayout.astro";
+
+const path = Astro.url.pathname;
 ---
 
-<MainLayout title="404 - Page Not Found">
-	<section class="hero">
-		<h1 class="hero-title">404</h1>
-		<h2 class="hero-subtitle">Page Not Found</h2>
-		<p class="hero-desc">
-			Oops! It looks like the page you are looking for has been moved or
-			doesn't exist.
-		</p>
-		<div class="hero-socials">
-			<a
-				href="/blog-beta"
-				style="text-decoration: underline; font-weight: bold;"
-			>
-				Return Home
-			</a>
-		</div>
-	</section>
+<MainLayout title="404 — command not found" command={path} cwd="~">
+    <div class="out err">command not found: {path}</div>
+    <div class="out spacer"></div>
+    <div class="out dim prose">
+        The page you are looking for has been moved or doesn't exist.
+    </div>
+    <div class="out spacer"></div>
+    <div class="out">
+        Try <a class="link" href="/">home</a> or <a class="link" href="/blog">blog</a>,
+        or type <span class="ok">help</span>.
+    </div>
 </MainLayout>
