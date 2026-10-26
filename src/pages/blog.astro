@@ -29,7 +29,7 @@ const fmt = (value: string) =>
     {
         posts.map((post, i) => (
             <div class="out ls-row">
-                <span class="dim">[{String(i).padStart(2, " ")}] </span>
+                <span class="dim">[{String(i + 1).padStart(2, " ")}] </span>
                 <span class="dim ls-date">{fmt(post.pubDate)} </span>
                 <a class="link" href={post.url}>
                     {post.title}

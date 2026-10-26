@@ -492,7 +492,7 @@ async function cmdLs(args: string[]) {
         print(`total ${posts.length}`, "dim");
         posts.forEach((post, i) => {
             line(
-                el("span", `[${String(i).padStart(2, " ")}] `, "dim"),
+                el("span", `[${String(i + 1).padStart(2, " ")}] `, "dim"),
                 el("span", `${fmtDate(post.pubDate)}  `, "dim"),
                 anchor(post.title, post.url),
                 el("span", `  → ${post.slug}`, "dim"),
@@ -531,7 +531,7 @@ async function cmdOpen(args: string[]) {
 
     if (/^\d+$/.test(t)) {
         await loadPosts();
-        const post = posts[parseInt(t, 10)];
+        const post = posts[parseInt(t, 10) - 1];
         if (!post) {
             print(`open: no post at index ${t}`, "err");
             return;
@@ -581,7 +581,7 @@ async function cmdSearch(args: string[]) {
     print(`${hits.length} match(es) for '${args.join(" ")}':`, "ok");
     hits.forEach(({ post, i }) => {
         line(
-            el("span", `[${String(i).padStart(2, " ")}] `, "dim"),
+            el("span", `[${String(i + 1).padStart(2, " ")}] `, "dim"),
             anchor(post.title, post.url),
             el("span", `  → ${post.slug}`, "dim"),
         );
