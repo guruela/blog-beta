@@ -240,21 +240,14 @@ function complete(input: HTMLInputElement) {
     const token = (isFirst ? parts[0] : parts[1]) ?? "";
     let candidates: string[] = [];
 
+    const verb = parts[0].toLowerCase();
     if (isFirst) {
         candidates = commandNames();
-    } else if (
-        ["open", "cat", "less", "more", "cd", "ls"].includes(
-            parts[0].toLowerCase(),
-        )
-    ) {
-        candidates = [
-            "home",
-            "blog",
-            "posts",
-            "contact",
-            ...posts.map((p) => p.slug),
-        ];
-    } else if (parts[0].toLowerCase() === "theme") {
+    } else if (["open", "cat", "less", "more"].includes(verb)) {
+        candidates = posts.map((p) => p.slug);
+    } else if (["cd", "ls"].includes(verb)) {
+        candidates = ["home", "blog", "posts", ...posts.map((p) => p.slug)];
+    } else if (verb === "theme") {
         candidates = THEMES.map((t) => t.id);
     } else {
         return;
@@ -431,7 +424,6 @@ function cmdBanner() {
 }
 
 function cmdContact() {
-    print("Let me know what you're building:", "ok");
     line(el("span", "  github     ", "dim"), anchor(SITE.github, SITE.github));
     line(
         el("span", "  email      ", "dim"),
@@ -521,13 +513,10 @@ function navigate(path: string) {
 async function cmdOpen(args: string[]) {
     const target = (args[0] ?? "").trim();
     if (!target) {
-        print("usage: open <home|blog|index|slug>", "warn");
+        print("usage: open <index|slug>", "warn");
         return;
     }
     const t = target.toLowerCase();
-    if (["blog", "posts"].includes(t)) return navigate("/blog");
-    if (["home", "~", "/", "."].includes(t)) return navigate("/");
-    if (t === "contact" || t === "social") return cmdContact();
 
     if (/^\d+$/.test(t)) {
         await loadPosts();

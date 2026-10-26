@@ -67,8 +67,8 @@ export const COMMANDS: CommandMeta[] = [
     {
         name: "open",
         group: "navigation",
-        summary: "open a section or a post",
-        usage: "open <home|blog|index|slug>",
+        summary: "open a blog post",
+        usage: "open <index|slug>",
     },
     {
         name: "cat",
